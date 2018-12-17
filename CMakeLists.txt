@@ -67,7 +67,8 @@ set(${LIBRARY_TARGET_NAME}_HDR
 
 target_include_directories(${LIBRARY_TARGET_NAME} INTERFACE "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
                                                             "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/DMScu/include>"
-                                                            "$<INSTALL_INTERFACE:$<INSTALL_PREFIX>/${CMAKE_INSTALL_INCLUDEDIR}>")
+                                                            "$<INSTALL_INTERFACE:$<INSTALL_PREFIX>/${CMAKE_INSTALL_INCLUDEDIR}>"
+							    )
 
 # This transfers control flow to the given subdir, so
 # cmake will start parsing the cmake file in that dir
