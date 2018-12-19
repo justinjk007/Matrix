@@ -3,107 +3,86 @@
 // Copyright (C) 2018-2019 Hossein Moein
 // Distributed under the BSD Software License (see file License)
 
-#ifndef _INCLUDED_MatrixBase_h
-#define _INCLUDED_MatrixBase_h
+#pragma once
+
+#include <vector>
 
 // ----------------------------------------------------------------------------
 
 namespace hmma
 {
 
-template<class TYPE>
-class   MatrixBase  {
+struct  MatrixException {  };
+struct  NotSquare : public MatrixException  {  };
+struct  Singular : public MatrixException  {  };
+struct  NotSolvable : public MatrixException  {  };
 
-    public:
+template<class T>
+struct  MatrixBase  {
 
-        struct  Exception { inline Exception () noexcept  {   }; };
+    MatrixBase() = default;
 
-        struct  NotSquare : public Exception  {
-
-            inline NotSquare () noexcept  {   };
-        };
-        struct  Singular : public Exception  {
-
-            inline Singular () noexcept  {   };
-        };
-        struct  NotSolvable : public Exception  {
-
-            inline NotSolvable () noexcept  {   };
-        };
-
-    public:
-
-        typedef unsigned int        size_type;
-        typedef TYPE            value_type;
-        typedef value_type &        reference;
-        typedef const value_type &  const_reference;
-        typedef value_type *        pointer;
-        typedef const value_type *  const_pointer;
+    using size_type = unsigned int;
+    using value_type = T;
+    using reference = value_type &;
+    using const_reference = const value_type &;
+    using pointer = value_type *;
+    using const_pointer = const value_type *;
 };
 
 // ----------------------------------------------------------------------------
 
-#include <vector>
+template<class T, class S = std::vector<T> >
+class   DenseMatrixStorage : public MatrixBase<T>  {
 
-// ----------------------------------------------------------------------------
+protected:
 
-template<class TYPE, class STORAGE = std::vector<TYPE> >
-class   DenseMatrixStorage : public MatrixBase<TYPE>  {
+    using BaseClass = MatrixBase<T>;
+    using size_type = typename BaseClass::size_type;
+    using value_type = typename BaseClass::value_type;
+    using reference = typename BaseClass::reference;
+    using const_reference = typename BaseClass::const_reference;
+    using pointer = typename BaseClass::pointer;
+    using const_pointer = typename BaseClass::const_pointer;
 
-    public:
+    using DataVector = S;
 
-        typedef MatrixBase<TYPE>         BaseClass;
-        typedef typename BaseClass::size_type       size_type;
-        typedef typename BaseClass::value_type      value_type;
-        typedef typename BaseClass::reference       reference;
-        typedef typename BaseClass::const_reference const_reference;
-        typedef typename BaseClass::pointer         pointer;
-        typedef typename BaseClass::const_pointer   const_pointer;
+    static const size_type  _NOPOS = static_cast<size_type>(-1);
 
-    protected:
+    inline DataVector &_get_data () noexcept  { return (data_); }
+    inline const DataVector &_get_data () const noexcept  { return (data_); }
 
-        typedef STORAGE DataVector;
+    void _resize (size_type in_row,
+                  size_type in_col,
+                  size_type data_size,
+                  bool set_all_to_def = true,
+                  const_reference def_value = value_type ());
 
-        static  const   size_type   _NOPOS = static_cast<size_type>(-1);
+    inline DenseMatrixStorage (
+        size_type row,
+        size_type col,
+        size_type data_size,
+        const_reference def_value = value_type ()) noexcept
+        : rows_ (row),
+          cols_ (col),
+          data_ (data_size, def_value)  {   }
 
-        inline DataVector &_get_data () noexcept  { return (data_); }
-        inline const DataVector &_get_data () const noexcept  {
+public:
 
-            return (data_);
-        }
+    DenseMatrixStorage() = default;
 
-        void _resize (size_type in_row,
-                      size_type in_col,
-                      size_type data_size,
-                      bool set_all_to_def = true,
-                      const_reference def_value = value_type ());
+    void clear () noexcept;
+    inline void swap (DenseMatrixStorage &rhs) noexcept;
+    inline bool empty () const noexcept  { return (data_.empty ()); }
 
-        inline DenseMatrixStorage () noexcept
-            : rows_ (0), cols_ (0), data_ ()  {   }
+    inline size_type rows () const noexcept  { return (rows_); }
+    inline size_type columns () const noexcept  { return (cols_); }
 
-        inline DenseMatrixStorage (size_type row,
-                                  size_type col,
-                                  size_type data_size,
-                                  const_reference def_value = value_type ())
-            noexcept
-            : rows_ (row),
-              cols_ (col),
-              data_ (data_size, def_value)  {   }
+private:
 
-    public:
-
-        void clear () noexcept;
-        inline void swap (DenseMatrixStorage &rhs) noexcept;
-        inline bool empty () const noexcept  { return (data_.empty ()); }
-
-        inline size_type rows () const noexcept  { return (rows_); }
-        inline size_type columns () const noexcept  { return (cols_); }
-
-    private:
-
-        size_type   rows_;
-        size_type   cols_;
-        DataVector  data_;
+    size_type   rows_ { 0 };
+    size_type   cols_ { 0 };
+    DataVector  data_ { };
 };
 
 } // namespace hmma
@@ -115,10 +94,6 @@ class   DenseMatrixStorage : public MatrixBase<TYPE>  {
 #  endif // DMS_INCLUDE_SOURCE
 
 // ----------------------------------------------------------------------------
-
-#undef _INCLUDED_MatrixBase_h
-#define _INCLUDED_MatrixBase_h 1
-#endif  // _INCLUDED_MatrixBase_h
 
 // Local Variables:
 // mode:C++

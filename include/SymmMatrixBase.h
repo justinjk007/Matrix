@@ -18,12 +18,12 @@
 namespace hmma
 {
 
-template<class TYPE>
-class   SymmMatrixBase : public DenseMatrixStorage<TYPE>  {
+template<class T>
+class   SymmMatrixBase : public DenseMatrixStorage<T>  {
 
     public:
 
-        typedef DenseMatrixStorage<TYPE> BaseClass;
+        typedef DenseMatrixStorage<T>               BaseClass;
 
         typedef typename BaseClass::size_type       size_type;
         typedef typename BaseClass::value_type      value_type;
@@ -32,12 +32,7 @@ class   SymmMatrixBase : public DenseMatrixStorage<TYPE>  {
         typedef typename BaseClass::pointer         pointer;
         typedef typename BaseClass::const_pointer   const_pointer;
 
-        typedef typename BaseClass::Exception       Exception;
-        typedef typename BaseClass::NotSquare       NotSquare;
-        typedef typename BaseClass::Singular        Singular;
-        typedef typename BaseClass::NotSolvable     NotSolvable;
-
-        typedef SymmMatrixBase<value_type>   SelfType;
+        typedef SymmMatrixBase<value_type>          SelfType;
 
     protected:
 
@@ -45,8 +40,8 @@ class   SymmMatrixBase : public DenseMatrixStorage<TYPE>  {
 
         inline
         SymmMatrixBase (size_type row,
-                               size_type col,
-                               const_reference def_value = value_type ())
+                        size_type col,
+                        const_reference def_value = value_type ())
             // throw (NotSquare)
             : BaseClass (row, col, (col * (col + 1)) / 2, def_value)  {
 

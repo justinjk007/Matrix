@@ -1,4 +1,4 @@
-/// Hossein Moein
+// Hossein Moein
 // February 11, 2018
 // Copyright (C) 2018-2019 Hossein Moein
 // Distributed under the BSD Software License (see file License)
@@ -7,6 +7,7 @@
 
 #include <DMScu_MathOperators.h>
 
+#include <Complex.h>
 #include <Matrix.h>
 #include <MathOperators.h>
 
@@ -21,7 +22,7 @@ int main (int argCnt, char *argVctr [])  {
     std::cout << "\nTesting the Symmetric Matrix ...\n" << std::endl;
 
     SDMatrix smat (8, 8);
-    double          count = 0.0;
+    int      count = 0;
 
     for (SDMatrix::size_type r = 0; r < 8; ++r)
         for (SDMatrix::size_type c = 0; c < 8; ++c)
@@ -54,7 +55,7 @@ int main (int argCnt, char *argVctr [])  {
 
     {
         DDMatrix dmat (8, 3);
-        double          count = 0.0;
+        int      count = 0;
 
         for (DDMatrix::size_type i = 0; i < 8; ++i)
             for (DDMatrix::size_type j = 0; j < 3; ++j)
@@ -122,7 +123,7 @@ int main (int argCnt, char *argVctr [])  {
         DDMatrix dmat (8, 3);
         DDMatrix one_mat (3, 8);
 
-        double  count = 0.0;
+        int  count = 0;
 
         for (DDMatrix::size_type i = 0; i < 8; ++i)
             for (DDMatrix::size_type j = 0; j < 3; ++j)  {
@@ -149,7 +150,7 @@ int main (int argCnt, char *argVctr [])  {
 
         DDMatrix dmat (3, 8);
 
-        double  count = 0.0;
+        int  count = 0;
 
         for (DDMatrix::size_type i = 0; i < 3; ++i)
             for (DDMatrix::size_type j = 0; j < 8; ++j)
@@ -188,7 +189,7 @@ int main (int argCnt, char *argVctr [])  {
 
         DDMatrix dmat (8, 8);
 
-        double  count = 0.0;
+        int  count = 0;
 
         for (DDMatrix::size_type i = 0; i < 8; ++i)
             for (DDMatrix::size_type j = 0; j < 8; ++j)
@@ -336,7 +337,7 @@ int main (int argCnt, char *argVctr [])  {
         DDMatrix dmat1 (8, 8);
         DDMatrix dmat2 (8, 8);
 
-        double  count = 0.0;
+        int  count = 0;
 
         for (DDMatrix::size_type i = 0; i < 8; ++i)
             for (DDMatrix::size_type j = 0; j < 8; ++j)  {
@@ -362,7 +363,7 @@ int main (int argCnt, char *argVctr [])  {
         std::cout << "After Addition(3):" << std::endl;
         dmat4.dump (std::cout) << std::endl;
 
-        count = 0.0;
+        count = 0;
         for (DDMatrix::size_type i = 0; i < 8; ++i)
             for (DDMatrix::size_type j = 0; j < 8; ++j)
                 dmat1 (i, j) = ++count;
@@ -378,7 +379,7 @@ int main (int argCnt, char *argVctr [])  {
         std::cout << "After dmat2 += dmat1;:" << std::endl;
         dmat2.dump (std::cout) << std::endl;
 
-        count = 0.0;
+        count = 0;
         for (DDMatrix::size_type i = 0; i < 8; ++i)
             for (DDMatrix::size_type j = 0; j < 8; ++j)
                 dmat1 (i, j) = ++count;
@@ -409,14 +410,14 @@ int main (int argCnt, char *argVctr [])  {
         {
             DDMatrix m1 (1, 4);
             DDMatrix m2 (4, 1);
-            double          count = 0.0;
+            int      count = 0;
 
             std::cout << "\t[1 X 4] * [4 X 1] = [1 X 1]\n" << std::endl;
             for (DDMatrix::size_type i = 0; i < 1; ++i)
                 for (DDMatrix::size_type j = 0; j < 4; ++j)
                     m1 (i, j) = ++count;
 
-            count = 0.0;
+            count = 0;
             for (DDMatrix::size_type i = 0; i < 4; ++i)
                 for (DDMatrix::size_type j = 0; j < 1; ++j)
                     m2 (i, j) = ++count;
@@ -433,14 +434,14 @@ int main (int argCnt, char *argVctr [])  {
         {
             DDMatrix m1 (3, 3);
             DDMatrix m2 (3, 3);
-            double          count = 0.0;
+            int      count = 0;
 
             std::cout << "\t[3 X 3] * [3 X 3] = [3 X 3]\n" << std::endl;
             for (DDMatrix::size_type i = 0; i < 3; ++i)
                 for (DDMatrix::size_type j = 0; j < 3; ++j)
                     m1 (i, j) = ++count;
 
-            count = 0.0;
+            count = 0;
             for (DDMatrix::size_type i = 0; i < 3; ++i)
                 for (DDMatrix::size_type j = 0; j < 3; ++j)
                     m2 (i, j) = ++count;
@@ -460,7 +461,7 @@ int main (int argCnt, char *argVctr [])  {
             DDMatrix m2 (2, 3);
             DDMatrix zero_m2 (2, 3);
             DDMatrix m3 (3, 3);
-            double          count = 0.0;
+            int      count = 0;
 
             std::cout << "\t[3 X 2] * [2 X 3] = [3 X 3]\n" << std::endl;
             for (DDMatrix::size_type i = 0; i < 3; ++i)
@@ -469,7 +470,7 @@ int main (int argCnt, char *argVctr [])  {
                     zero_m1 (i, j) = 0.0;
                 }
 
-            count = 0.0;
+            count = 0;
             for (DDMatrix::size_type i = 0; i < 2; ++i)
                 for (DDMatrix::size_type j = 0; j < 3; ++j)  {
                     m2 (i, j) = ++count;
@@ -497,7 +498,7 @@ int main (int argCnt, char *argVctr [])  {
             DDMatrix m5 (3, 2);
             DDMatrix m6 (2, 3);
 
-            count = 0.0;
+            count = 0;
             for (DDMatrix::size_type i = 0; i < 3; ++i)
                 for (DDMatrix::size_type j = 0; j < 2; ++j)
                     m5 (i, j) = ++count;
@@ -524,8 +525,7 @@ int main (int argCnt, char *argVctr [])  {
         DDMatrix dmat2 (8, 8);
         DDMatrix dmat3 (3, 8);
         DDMatrix dmat4 (3, 8);
-
-        double  count = 0.0;
+        int      count = 0;
 
         for (DDMatrix::size_type i = 0; i < 8; ++i)
             for (DDMatrix::size_type j = 0; j < 8; ++j)
@@ -534,7 +534,7 @@ int main (int argCnt, char *argVctr [])  {
             for (DDMatrix::size_type j = 0; j < 8; ++j)
                 dmat2 (i, j) = --count;
 
-        count = 0.0;
+        count = 0;
         for (DDMatrix::size_type i = 0; i < 3; ++i)
             for (DDMatrix::size_type j = 0; j < 8; ++j)
                 dmat3 (i, j) = ++count;
@@ -599,7 +599,7 @@ int main (int argCnt, char *argVctr [])  {
         const   int     pre = std::cout.precision (8);
         DDMatrix dmat1 (3, 3);
         DDMatrix dmat2 (3, 3);
-        double          count = 0.0;
+        int      count = 0;
 
         dmat1 (0, 0) = 2.0;
         dmat1 (0, 1) = 3.0;
@@ -692,7 +692,7 @@ int main (int argCnt, char *argVctr [])  {
 
         DDMatrix dmat2 (8, 3);
 
-        double  count = 0.0;
+        double  count = 0;
 
         for (DDMatrix::size_type i = 0; i < 8; ++i)
             for (DDMatrix::size_type j = 0; j < 3; ++j)
@@ -706,7 +706,7 @@ int main (int argCnt, char *argVctr [])  {
 
         DDMatrix dmat3 (8, 8);
 
-        count = 0.0;
+        count = 0;
         for (DDMatrix::size_type i = 0; i < 8; ++i)
             for (DDMatrix::size_type j = 0; j < 8; ++j)
                 dmat3 (i, j) = ::rand ();
@@ -727,8 +727,7 @@ int main (int argCnt, char *argVctr [])  {
         DDMatrix dmat (8, 4);
         DDMatrix null_mat (1, 4);
         DDMatrix two_mat (4, 1);
-
-        double  count = 0.0;
+        int      count = 0;
 
         for (DDMatrix::size_type i = 0; i < 8; ++i)
             for (DDMatrix::size_type j = 0; j < 4; ++j)
@@ -810,7 +809,7 @@ int main (int argCnt, char *argVctr [])  {
         std::cout << "\nTesting is_normal() method ...\n" << std::endl;
 
         DDMatrix dmat (3, 3);
-        double          count = 0.0;
+        int      count = 0;
 
         for (DDMatrix::size_type i = 0; i < 3; ++i)
             for (DDMatrix::size_type j = 0; j < 3; ++j)
@@ -850,7 +849,7 @@ int main (int argCnt, char *argVctr [])  {
                   << std::endl;
 
         SDMatrix dmat (10, 10);
-        double          count = 0.0;
+        int      count = 0;
 
         for (DDMatrix::size_type i = 0; i < 10; ++i)
             for (DDMatrix::size_type j = 0; j < 10; ++j)
@@ -872,7 +871,7 @@ int main (int argCnt, char *argVctr [])  {
 
         SDMatrix dmat2 (5, 5);
 
-        count = 0.0;
+        count = 0;
         for (DDMatrix::size_type i = 0; i < 5; ++i)
             for (DDMatrix::size_type j = 0; j < 5; ++j)
                 dmat2 (i, j) = ++count;
@@ -896,7 +895,7 @@ int main (int argCnt, char *argVctr [])  {
                   << std::endl;
 
         DDMatrix dmat (10, 10);
-        double          count = 0.0;
+        int      count = 0;
 
         for (DDMatrix::size_type i = 0; i < 10; ++i)
             for (DDMatrix::size_type j = 0; j < 10; ++j)
@@ -919,7 +918,7 @@ int main (int argCnt, char *argVctr [])  {
 
         DDMatrix dmat2 (5, 5);
 
-        count = 0.0;
+        count = 0;
         for (DDMatrix::size_type i = 0; i < 5; ++i)
             for (DDMatrix::size_type j = 0; j < 5; ++j)
                 dmat2 (i, j) = ++count;
@@ -945,7 +944,7 @@ int main (int argCnt, char *argVctr [])  {
 
         {
             DDMatrix dmat (8, 4);
-            double          count = 0.0;
+            int      count = 0;
 
             for (DDMatrix::size_type i = 0; i < 8; ++i)
                 for (DDMatrix::size_type j = 0; j < 4; ++j)
@@ -982,7 +981,7 @@ int main (int argCnt, char *argVctr [])  {
 
         {
             DDMatrix dmat (4, 8);
-            double          count = 0.0;
+            int      count = 0;
 
             for (DDMatrix::size_type i = 0; i < 4; ++i)
                 for (DDMatrix::size_type j = 0; j < 8; ++j)
@@ -1019,7 +1018,7 @@ int main (int argCnt, char *argVctr [])  {
 
         {
             DDMatrix dmat (8, 8);
-            double          count = 0.0;
+            int      count = 0;
 
             for (DDMatrix::size_type i = 0; i < 8; ++i)
                 for (DDMatrix::size_type j = 0; j < 8; ++j)
@@ -1064,7 +1063,7 @@ int main (int argCnt, char *argVctr [])  {
 
         {
             DDMatrix dmat (8, 4);
-            double          count = 0.0;
+            int      count = 0;
 
             for (DDMatrix::size_type i = 0; i < 8; ++i)
                 for (DDMatrix::size_type j = 0; j < 4; ++j)
@@ -1096,7 +1095,7 @@ int main (int argCnt, char *argVctr [])  {
 
         {
             DDMatrix dmat (4, 8);
-            double          count = 0.0;
+            int      count = 0;
 
             for (DDMatrix::size_type i = 0; i < 4; ++i)
                 for (DDMatrix::size_type j = 0; j < 8; ++j)
@@ -1128,7 +1127,7 @@ int main (int argCnt, char *argVctr [])  {
 
         {
             DDMatrix dmat (8, 8);
-            double          count = 0.0;
+            int      count = 0;
 
             for (DDMatrix::size_type i = 0; i < 8; ++i)
                 for (DDMatrix::size_type j = 0; j < 8; ++j)
@@ -1169,7 +1168,7 @@ int main (int argCnt, char *argVctr [])  {
         std::cout << "\nTesting lud() method ...\n" << std::endl;
 
         DDMatrix dmat (8, 8);
-        double          count = 0.0;
+        int      count = 0;
 
         for (DDMatrix::size_type i = 0; i < 8; ++i)
             for (DDMatrix::size_type j = 0; j < 4; ++j)
@@ -1549,6 +1548,33 @@ int main (int argCnt, char *argVctr [])  {
             posvec * ~totretvec - dmat1 * (posvec * sigma * ~posvec);
 
         dmat5.dump (std::cout) << std::endl;
+
+        std::cout.precision (pre);
+    }
+
+    {
+        const   int pre = std::cout.precision (10);
+
+        std::cout << "\nTesting Complex ...\n" << std::endl;
+
+        Complex<double> c1(20, 5);
+        Complex<double> c2(-3, -40);
+
+        std::cout << "c1 = " << c1 << std::endl;
+        std::cout << "c2 = " << c2 << std::endl;
+
+        auto    filter_func = [](const Complex<double> &cpx) {
+            return (cpx.real() > 0);
+        };
+        auto    trans_func = [](const Complex<double> &cpx) {
+            const Complex<double>   local_c(cpx.real() * 10, cpx.imaginary());
+            return (local_c);
+        };
+
+        std::cout << "c1 filtered = " << c1.filter(filter_func) << std::endl;
+        std::cout << "c2 filtered = " << c2.filter(filter_func) << std::endl;
+        std::cout << "c2 transformed = "
+                  << c2.transform(trans_func) << std::endl;
 
         std::cout.precision (pre);
     }
